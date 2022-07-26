@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crop Prediction</title>
+</head>
+<h1>Crop prediction</h1>
+<body>
+<p>Click the button to get your coordinates.</p>
+<button onclick="getLocation()">Try It</button>
+<p id="demo"></p>
+<script>
+var x = document.getElementById("demo");
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+
+
+    <form method="post" action="/predict">
+        <label>LONGITUDE</label><br>
+        <input type="text" name="lon"><br><br>
+
+        <label>LATITUDE</label><br>
+        <input type="text" name="lat"><br><br>
+
+        <label>TEMPERATURE</label><br>
+        <input type="text" name="tem"><br><br>
+
+        <label>HUMIDITY</label><br>
+        <input type="text" name="hum"><br><br>
+
+        <label>MOISTURE</label><br>
+        <input type="text" name="moi"><br><br>
+
+        <input type="submit" value="Predict"><br><br>
+    </form>
+    {% if result %}
+        <h2>{{ result }}</h2>
+    {% endif %}
+</body>
+</html>
